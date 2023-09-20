@@ -15,17 +15,20 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     avatar: {
       type: String,
     },
     phone: {
       type: String,
+      unique: true,
     },
     clerk: {
       id: {
         type: String,
         required: true,
+        unique: true,
       },
     },
   },

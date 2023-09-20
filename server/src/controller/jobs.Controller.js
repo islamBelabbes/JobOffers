@@ -21,14 +21,14 @@ const getJobs = async (req, res, next) => {
     return acc;
   }, {});
 
-  // count total
-  const total = await jobsModel.count(query);
-
-  // pagination helper
-  const paginationData = pagination(req.query, total);
-
-  // get the data
   try {
+    // count total
+    const total = await jobsModel.count(query);
+
+    // pagination helper
+    const paginationData = pagination(req.query, total);
+
+    // get the data
     const jobs = await jobsModel.aggregate([
       {
         $match: query,
@@ -57,6 +57,7 @@ const getJobs = async (req, res, next) => {
     response.sendOk(res, {
       total: paginationData.total,
       nextPage: paginationData.nextPage,
+      limit: paginationData.limit,
       data: jobs,
     });
   } catch (err) {

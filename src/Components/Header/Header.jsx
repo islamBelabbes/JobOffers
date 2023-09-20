@@ -1,11 +1,11 @@
 import React from "react";
 import Logo from "../../assets/Logo.svg";
-import Menu from "../../assets/Menu.svg";
 import Nav from "./Nav";
 import Button from "../Shared/Button";
 import { useModal } from "../../Store";
 import { UserButton, useUser } from "@clerk/clerk-react";
-import MobileNav from "./MobileNav";
+import { SignInButton, SignUpButton } from "@clerk/clerk-react";
+
 function Header() {
   const { isSignedIn, isLoaded } = useUser();
 

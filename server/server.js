@@ -18,6 +18,7 @@ dbConnect();
 // routes //
 const companyRoute = require("./src/Routes/company.Route");
 const jobsRoute = require("./src/Routes/jobs.Route");
+const marketingRoute = require("./src/Routes/marketing.Route");
 // const userRoute = require("./src/Routes/user.Route");
 const webhookRoute = require("./src/Routes/webhook.Route");
 
@@ -25,6 +26,7 @@ const webhookRoute = require("./src/Routes/webhook.Route");
 app.use("/jobs", jobsRoute);
 app.use("/company", companyRoute);
 app.use("/webhooks", webhookRoute);
+app.use("/marketing", marketingRoute);
 
 // 404 pages //
 app.use("*", (req, res) => {

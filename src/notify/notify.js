@@ -1,9 +1,15 @@
 import { toast } from "react-toastify";
 
+export const dismiss = (id) => {
+  toast.dismiss(id);
+};
 const notify = (message, type, options) => {
   switch (type) {
     case "success":
       toast.success(message, options);
+      break;
+    case "info":
+      toast.info(message, options);
       break;
     case "error":
       toast.error(message, options);

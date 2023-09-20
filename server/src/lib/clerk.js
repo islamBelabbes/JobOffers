@@ -9,7 +9,9 @@ const clerkWebHookHandler = async (body, headers) => {
     const webhook = new svix(process.env.SVIX_SECRET);
     await webhook.verify(JSON.stringify(body), headers);
   } catch (err) {
-    throw new Error(401);
+    const CustomError = new Error("Unauthorized"); // Create a new error object
+    CustomError.status = 401; // Set the status code on the error object
+    throw CustomError;
   }
 
   // all good ... process

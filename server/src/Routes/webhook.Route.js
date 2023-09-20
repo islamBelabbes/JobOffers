@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const clerkProcess = require("../controller/clerk.Controller");
+const webhookController = require("../controller/webhook.Controller");
 const errorHandler = require("../middleware/errorHandler.Middleware");
 
 // clerk
-router.post("/clerk", clerkProcess, errorHandler);
+router.post("/clerk", webhookController.clerkProcess, errorHandler);
 
 module.exports = router;

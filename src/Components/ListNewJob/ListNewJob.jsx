@@ -3,6 +3,7 @@ import Button from "../Shared/Button";
 import { layout } from "../Shared/Style";
 import { useAuth } from "@clerk/clerk-react";
 import { useModal } from "../../Store";
+import notify, { dismiss } from "../../notify/notify";
 
 function JobUpload() {
   const { isSignedIn } = useAuth();
@@ -11,6 +12,7 @@ function JobUpload() {
     if (!isSignedIn) {
       return OpenModal("loginModal");
     }
+    return notify("this feature is not available yet", "info");
   };
   return (
     <div className={layout.MainContainer}>

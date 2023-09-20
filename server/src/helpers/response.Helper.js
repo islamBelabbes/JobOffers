@@ -11,6 +11,12 @@ exports.sendBadRequest = function (res, message) {
     message: message,
   });
 };
+exports.sendConflict = function (res, message) {
+  return res.status(409).send({
+    success: false,
+    message: message,
+  });
+};
 
 exports.sendUnauthorized = function (res, message) {
   return res.status(401).send({
@@ -35,7 +41,7 @@ exports.sendNotFound = function (res) {
 exports.sendServerError = function (res) {
   return res.status(500).send({
     success: false,
-    message: "Some thing went wrong.",
+    message: "Something went wrong.",
   });
 };
 

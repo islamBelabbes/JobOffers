@@ -1,5 +1,5 @@
-const userController = require("../controller/user.Controller");
-const clerkWebHookHandler = require("../lib/clerk/webhooks");
+const userController = require("./user.Controller");
+const clerkWebHookHandler = require("../lib/clerk");
 const response = require("../helpers/response.Helper");
 
 const clerkProcess = async (req, res, next) => {
@@ -35,4 +35,6 @@ const clerkProcess = async (req, res, next) => {
   response.sendOk(res);
 };
 
-module.exports = clerkProcess;
+module.exports = {
+  clerkProcess,
+};

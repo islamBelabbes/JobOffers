@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { layout } from "../Shared/Style";
 import Button from "../Shared/Button";
 import Location from "./Location";
 import Salary from "./Salary";
-import PostingDate from "./PostingDate";
 import EmploymentType from "./EmploymentType";
 import { useIsFetching } from "@tanstack/react-query";
 function Filter({ handleSubmit, handleChange, values, clearFilter }) {

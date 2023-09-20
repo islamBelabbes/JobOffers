@@ -2,16 +2,21 @@ import React, { useEffect } from "react";
 import ListingItem from "./ListingItem";
 import filter from "../../assets/filter.svg";
 import { useFilter, useModal } from "../../Store";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getJobs } from "../../api/jobs.Api";
 import ListingItemSkeleton from "../skeleton/ListingItemSkeleton";
 import notify from "../../notify/notify";
+import ReactPaginate from "react-paginate";
+import { calculateTotalPages } from "../../utility/pagination.Utility";
+import styles from "../Shared/Style";
+
 function Listing() {
   const openModal = useModal((state) => state.openModal);
   const Filter = useFilter((state) => state.filter);
-  const jobsQuery = useQuery({
+  const jobsQuery = useInfiniteQuery({
     queryKey: ["jobs", Filter],
-    queryFn: () => getJobs(Filter),
+    getNextPageParam: (page) => page.nextPage,
+    queryFn: ({ pageParam = 1 }) => getJobs(Filter, pageParam),
     refetchOnWindowFocus: false,
   });
 
@@ -29,7 +34,10 @@ function Listing() {
               <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-600 w-60"></div>
             </div>
           ) : (
-            `${jobsQuery?.data?.data?.length} Jobs`
+            `${
+              jobsQuery?.data?.pages[jobsQuery?.data?.pages.length - 1].data
+                .length
+            } Jobs`
           )}
         </h1>
 
@@ -49,15 +57,44 @@ function Listing() {
           Array(5)
             .fill(0)
             .map((item, index) => <ListingItemSkeleton key={index} />)
-        ) : jobsQuery.data?.data.length > 0 ? (
-          jobsQuery.data?.data.map((job, index) => (
-            <ListingItem key={index} data={job} />
-          ))
+        ) : jobsQuery?.data?.pages[jobsQuery?.data?.pages.length - 1].data
+            .length > 0 ? (
+          jobsQuery?.data?.pages[jobsQuery?.data?.pages.length - 1].data.map(
+            (job, index) => <ListingItem key={index} data={job} />
+          )
         ) : (
           <h1 className="text-primary text-[20px] font-medium leading-[30px] text-center">
             No Jobs Found.{" "}
           </h1>
         )}
+      </div>
+
+      <div className={jobsQuery.isFetchingNextPage && "cursor-not-allowed"}>
+        <div
+          className={`flex ${
+            jobsQuery.isFetchingNextPage && "opacity-50 pointer-events-none"
+          }`}
+        >
+          {!jobsQuery.isLoading && !jobsQuery.isError && (
+            <ReactPaginate
+              className="flex items-center gap-4 mx-auto"
+              nextLinkClassName={`bg-white ${styles.primaryBorder} py-[8px] px-[16px] text-[16px] text-normal`}
+              previousLinkClassName={`bg-white ${styles.primaryBorder} py-[8px] px-[16px] text-[16px] text-normal`}
+              pageLinkClassName={`${styles.primaryBorder} py-[8px] px-[16px] text-[16px] text-normal`}
+              activeLinkClassName="bg-[#3575E2] text-white"
+              disabledLinkClassName="cursor-not-allowed opacity-50"
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={() => jobsQuery.fetchNextPage()}
+              pageCount={calculateTotalPages(
+                jobsQuery?.data?.pages[0].total,
+                jobsQuery?.data?.pages[0].limit
+              )}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
