@@ -44,7 +44,7 @@ function Listing() {
         {/* Open Side Filter Modal */}
         <div className="" onClick={() => openModal("filterModal")}>
           <img
-            className="w-[40px] h-[40px] object-contain cursor-pointer"
+            className="w-[40px] h-[40px] object-contain cursor-pointer xl:hidden"
             src={filter}
             alt="filter"
           />
@@ -69,7 +69,12 @@ function Listing() {
         )}
       </div>
 
-      <div className={jobsQuery.isFetchingNextPage && "cursor-not-allowed"}>
+      {/* pagination */}
+
+      <div
+        id="pag"
+        className={jobsQuery.isFetchingNextPage ? "cursor-not-allowed" : null}
+      >
         <div
           className={`flex ${
             jobsQuery.isFetchingNextPage && "opacity-50 pointer-events-none"

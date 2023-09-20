@@ -27,7 +27,7 @@ function Search() {
           are waiting for you.
         </p>
       </div>
-      <form className="flex" onSubmit={submitHandler}>
+      <form className="flex flex-col lg:flex-row " onSubmit={submitHandler}>
         <SearchInput />
         <Button
           variant={"primary"}
