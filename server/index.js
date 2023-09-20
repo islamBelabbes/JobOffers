@@ -46,3 +46,5 @@ mongoose.connection.once("open", () => {
     console.log("listening on port " + port);
   });
 });
+
+module.exports = app;
