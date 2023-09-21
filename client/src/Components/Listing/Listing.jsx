@@ -15,7 +15,7 @@ function Listing() {
   const Filter = useFilter((state) => state.filter);
   const jobsQuery = useInfiniteQuery({
     queryKey: ["jobs", Filter],
-    getNextPageParam: (page) => page.nextPage,
+    getNextPageParam: (page) => page?.nextPage,
     queryFn: ({ pageParam = 1 }) => getJobs(Filter, pageParam),
     refetchOnWindowFocus: false,
   });
