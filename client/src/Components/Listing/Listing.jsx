@@ -27,7 +27,7 @@ function Listing() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
-        {/* Jobs Count */}
+        {/* Jobs Count  */}
         <h1 className=" text-primary text-[32px] font-bold leading-[48px] ">
           {jobsQuery?.isLoading || jobsQuery?.isError ? (
             <div role="status" className="space-y-2.5 animate-pulse max-w-lg">
