@@ -8,7 +8,7 @@ import ListingItemSkeleton from "../skeleton/ListingItemSkeleton";
 import ReactPaginate from "react-paginate";
 import { calculateTotalPages } from "../../utility/pagination.Utility";
 import styles from "../Shared/Style";
-
+import notify from "../../notify/notify";
 function Listing() {
   const openModal = useModal((state) => state.openModal);
   const Filter = useFilter((state) => state.filter);
@@ -30,6 +30,10 @@ function Listing() {
       isLoading || isError || jobs?.pages[jobs?.pages.length - 1] === undefined
     );
   };
+
+  if (isError) {
+    notify("Something want wrong please try again later", "error");
+  }
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
