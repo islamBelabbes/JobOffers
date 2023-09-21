@@ -29,13 +29,13 @@ function Listing() {
       <div className="flex justify-between">
         {/* Jobs Count */}
         <h1 className=" text-primary text-[32px] font-bold leading-[48px] ">
-          {jobsQuery.isLoading || jobsQuery.isError ? (
+          {jobsQuery?.isLoading || jobsQuery?.isError ? (
             <div role="status" className="space-y-2.5 animate-pulse max-w-lg">
               <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-600 w-60"></div>
             </div>
           ) : (
             `${
-              jobsQuery?.data?.pages[jobsQuery?.data?.pages.length - 1].data
+              jobsQuery?.data?.pages[jobsQuery?.data?.pages?.length - 1]?.data
                 .length
             } Jobs`
           )}
@@ -53,7 +53,7 @@ function Listing() {
 
       {/* Display Jobs */}
       <div className="flex flex-col gap-4 ">
-        {jobsQuery.isLoading || jobsQuery.isError ? (
+        {jobsQuery?.isLoading || jobsQuery?.isError ? (
           Array(5)
             .fill(0)
             .map((item, index) => <ListingItemSkeleton key={index} />)
@@ -73,14 +73,14 @@ function Listing() {
 
       <div
         id="pag"
-        className={jobsQuery.isFetchingNextPage ? "cursor-not-allowed" : null}
+        className={jobsQuery?.isFetchingNextPage ? "cursor-not-allowed" : null}
       >
         <div
           className={`flex ${
-            jobsQuery.isFetchingNextPage && "opacity-50 pointer-events-none"
+            jobsQuery?.isFetchingNextPage && "opacity-50 pointer-events-none"
           }`}
         >
-          {!jobsQuery.isLoading && !jobsQuery.isError && (
+          {!jobsQuery?.isLoading && !jobsQuery?.isError && (
             <ReactPaginate
               className="flex items-center gap-4 mx-auto"
               nextLinkClassName={`bg-white ${styles.primaryBorder} py-[8px] px-[16px] text-[16px] text-normal`}
@@ -92,8 +92,8 @@ function Listing() {
               nextLabel=">"
               onPageChange={() => jobsQuery.fetchNextPage()}
               pageCount={calculateTotalPages(
-                jobsQuery?.data?.pages[0].total,
-                jobsQuery?.data?.pages[0].limit
+                jobsQuery?.data?.pages[0]?.total,
+                jobsQuery?.data?.pages[0]?.limit
               )}
               previousLabel="<"
               renderOnZeroPageCount={null}
