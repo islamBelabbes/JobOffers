@@ -25,14 +25,17 @@ function Listing() {
     refetchOnWindowFocus: false,
   });
 
+  const triggerSkeleton = () => {
+    return (
+      isLoading || isError || jobs?.pages[jobs?.pages.length - 1] === undefined
+    );
+  };
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
         {/* Jobs Count  */}
         <h1 className=" text-primary text-[32px] font-bold leading-[48px] ">
-          {isLoading ||
-          isError ||
-          jobs?.pages[jobs?.pages.length - 1] === undefined ? (
+          {triggerSkeleton() ? (
             <div role="status" className="space-y-2.5 animate-pulse max-w-lg">
               <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-600 w-60"></div>
             </div>
@@ -53,9 +56,7 @@ function Listing() {
 
       {/* Display Jobs */}
       <div className="flex flex-col gap-4 ">
-        {isLoading ||
-        isError ||
-        jobs?.pages[jobs?.pages.length - 1] === undefined ? (
+        {triggerSkeleton() ? (
           Array(5)
             .fill(0)
             .map((item, index) => <ListingItemSkeleton key={index} />)
