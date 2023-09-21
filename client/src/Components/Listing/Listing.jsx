@@ -57,9 +57,9 @@ function Listing() {
           Array(5)
             .fill(0)
             .map((item, index) => <ListingItemSkeleton key={index} />)
-        ) : jobsQuery?.data?.pages[jobsQuery?.data?.pages.length - 1].data
-            .length > 0 ? (
-          jobsQuery?.data?.pages[jobsQuery?.data?.pages.length - 1].data.map(
+        ) : jobsQuery?.data?.pages[jobsQuery?.data?.pages.length - 1]?.data
+            ?.length > 0 ? (
+          jobsQuery?.data?.pages[jobsQuery?.data?.pages.length - 1]?.data?.map(
             (job, index) => <ListingItem key={index} data={job} />
           )
         ) : (
