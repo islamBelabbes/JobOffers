@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const authInterceptor = (req) => {
-  req.headers["ngrok-skip-browser-warning"] = "nice";
+  req.headers["ngrok-skip-browser-warning"] = "true";
   const accessToken = JSON.parse(localStorage.getItem("profile"))?.accessToken;
   if (accessToken) {
     req.headers.Authorization = `Bearer ${accessToken}`;
