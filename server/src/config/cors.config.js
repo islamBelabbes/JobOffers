@@ -1,6 +1,6 @@
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://jobblybuddy.vercel.app/",
+  "https://jobblybuddy.vercel.app",
 ];
 
 const corsOptions = {
