@@ -1,8 +1,5 @@
 const allowedOrigins = [
   "http://localhost:5173",
-  "http://localhost:3500",
-  "http://localhost:3000",
-  "https://jobblybuddy.vercel.app",
   "https://jobblybuddy.vercel.app/",
 ];
 
