@@ -12,7 +12,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // MongoDB connection START //
-const dbConnect = require("./src/config/DbConnect");
+const dbConnect = require("./src/config/dbConnect");
 dbConnect();
 
 // routes //
