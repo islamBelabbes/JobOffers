@@ -1,17 +1,12 @@
-
 # JobblyBaddy
 
 Simple App for jobs seekers.
-
-
 
 ## Features
 
 - Synced LargeScreen and MinScreen's Filter
 - Mailchimp integration
 - Responsive
-
-
 
 ## Run Locally
 
@@ -36,9 +31,8 @@ Install dependencies
 Start the server
 
 ```bash
-  npm run app
+  npm run dev
 ```
-
 
 ## Environment Variables
 
@@ -59,13 +53,15 @@ Start the server
 `MAILCHIMP_PREFIX`
 
 `MAILCHIMP_LIST_ID`
+
 ## Feedback
 
 If you have any feedback, please reach out to us at belabbesislam2@gmail.com
 
-
 ## 🛠 technologies
+
 Reactjs , Vite , mongoDb , ExpressJs
 
 ## 🔰 Services
+
 MailChimp , Clerk
