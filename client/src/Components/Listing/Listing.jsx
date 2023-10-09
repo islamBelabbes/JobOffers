@@ -44,7 +44,7 @@ function Listing() {
               <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-600 w-60"></div>
             </div>
           ) : (
-            `${jobs?.pages[jobs?.pages?.length - 1]?.jobs.length} Jobs`
+            `${jobs?.pages[jobs?.pages?.length - 1]?.data?.length} Jobs`
           )}
         </h1>
 
@@ -64,8 +64,8 @@ function Listing() {
           Array(5)
             .fill(0)
             .map((item, index) => <ListingItemSkeleton key={index} />)
-        ) : jobs?.pages[jobs?.pages.length - 1]?.jobs?.length > 0 ? (
-          jobs?.pages[jobs?.pages.length - 1]?.jobs?.map((job, index) => (
+        ) : jobs?.pages[jobs?.pages.length - 1]?.data?.length > 0 ? (
+          jobs?.pages[jobs?.pages.length - 1]?.data?.map((job, index) => (
             <ListingItem key={index} data={job} />
           ))
         ) : (
