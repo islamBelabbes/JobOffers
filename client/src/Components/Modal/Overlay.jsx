@@ -11,14 +11,14 @@ function Overlay({ children, styles, closeStyles }) {
   }, []);
   return (
     <div className={`overlay h-full ${styles || ""} `} onClick={CloseModal}>
-      <div
+      {/* <div
         className={`absolute top-0 right-0 translate-y-2  translate-x-[-30px] w-[25px] cursor-pointer ${
           closeStyles && closeStyles
         }`}
         onClick={CloseModal}
       >
         <img src={close} alt="" />
-      </div>
+      </div> */}
 
       <div
         className="flex items-center justify-center w-full h-full cursor-auto xl:w-auto "

@@ -23,10 +23,12 @@ function Nav() {
     <ul className="flex w-full gap-[48px]">
       {NavMenu.map((item, index) => (
         <li
-          className="text-base font-normal leading-6 text-primary "
+          className="text-base font-normal leading-6 cursor-not-allowed text-primary opacity-60 "
           key={index}
         >
-          <a href={item.path}>{item.title}</a>
+          <a className="pointer-events-none" href={item.path}>
+            {item.title}
+          </a>
         </li>
       ))}
     </ul>

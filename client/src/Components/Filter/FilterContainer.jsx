@@ -5,15 +5,26 @@ import Filter from "./Filter";
 import { useFormik } from "formik";
 import { FilterSchema } from "../../validation/Schema";
 import notify from "../../notify/notify";
+import { setQueryStringParameter } from "../../utility/utility";
 function FilterContainer() {
   const FilterModal = useModal((state) => state.modals.filterModal);
   const closeModal = useModal((state) => state.closeModal);
   const setFilter = useFilter((state) => state.setFilter);
   const filter = useFilter((state) => state.filter);
   const resetFilter = useFilter((state) => state.resetFilter);
+
+  const getFilterFromSearchParams = () => {
+    const searchParams = new URLSearchParams(window.location.search);
+    let newFilter = {};
+    Object.entries(filter).forEach(([key, value]) => {
+      newFilter = { ...newFilter, [key]: searchParams.get(key) || "" };
+    });
+    return newFilter;
+  };
+
   // formik initialize
   const { handleSubmit, handleChange, values, resetForm, errors } = useFormik({
-    initialValues: filter,
+    initialValues: getFilterFromSearchParams(),
     onSubmit: (values) => {
       const { title, ...other } = values;
       setFilter({ ...other });
@@ -27,11 +38,18 @@ function FilterContainer() {
   });
 
   const clearFilter = () => {
-    resetForm();
+    window.history.replaceState({}, "", window.location.pathname);
+    resetForm({ values: {} });
     resetFilter();
 
     // we close the modals in case side filter modal is open.
     closeModal();
+  };
+
+  // custom onChange
+  const onChangeHandler = (e) => {
+    setQueryStringParameter(e.target.name, e.target.value);
+    handleChange(e);
   };
 
   useEffect(() => {
@@ -40,6 +58,11 @@ function FilterContainer() {
 
     notify(errors[errorsKeys], "error");
   }, [errors]);
+
+  useEffect(() => {
+    const newFilter = getFilterFromSearchParams();
+    setFilter({ ...newFilter });
+  }, []);
   return (
     <>
       {/* Side modal filter */}
@@ -51,7 +74,7 @@ function FilterContainer() {
         >
           <Filter
             handleSubmit={handleSubmit}
-            handleChange={handleChange}
+            handleChange={onChangeHandler}
             values={values}
             clearFilter={clearFilter}
           />
@@ -62,7 +85,7 @@ function FilterContainer() {
       <div className="max-w-[250px] w-full  hidden xl:block ">
         <Filter
           handleSubmit={handleSubmit}
-          handleChange={handleChange}
+          handleChange={onChangeHandler}
           values={values}
           clearFilter={clearFilter}
         />

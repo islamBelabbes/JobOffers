@@ -10,7 +10,7 @@ function Location({ onChange, value }) {
         name="location"
         value={value.location}
         onChange={(_, e) => onChange(e)}
-        defaultOptionLabel="Any"
+        defaultOptionLabel={value.location || "Any"}
       />
     </div>
   );

@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SearchInput from "./SearchInput";
 import { useFilter } from "../../Store";
 import Button from "../Shared/Button";
+import { setQueryStringParameter } from "../../utility/utility";
 
 function Search() {
   const setFilter = useFilter((state) => state.setFilter);
   const filter = useFilter((state) => state.filter);
+  const [searchVAL, setSearchVAL] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { title } = Object.fromEntries(formData);
     setFilter({ ...filter, title: title });
+    setQueryStringParameter("title", title);
   };
+
+  const clearInput = () => {
+    setFilter({ ...filter, title: "" });
+    setQueryStringParameter("title", "");
+    setSearchVAL("");
+  };
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const titleParam = searchParams.get("title");
+    if (!titleParam) return;
+    setSearchVAL(titleParam);
+  }, []);
+
   return (
     <div className="w-full py-[80px] flex gap-[40px] flex-col">
       <div>
@@ -28,7 +44,11 @@ function Search() {
         </p>
       </div>
       <form className="flex flex-col lg:flex-row " onSubmit={submitHandler}>
-        <SearchInput />
+        <SearchInput
+          searchVAL={searchVAL}
+          setSearchVAL={setSearchVAL}
+          clearInput={clearInput}
+        />
         <Button
           variant={"primary"}
           styles={"py-[18px] px-[40px] rounded-none xl:rounded-r "}
